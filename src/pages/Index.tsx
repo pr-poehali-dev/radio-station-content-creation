@@ -7,7 +7,37 @@ import { Textarea } from '@/components/ui/textarea';
 
 function Index() {
   const [activeSection, setActiveSection] = useState('home');
-  const [showPlayer, setShowPlayer] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    audioRef.current = new Audio();
+    audioRef.current.crossOrigin = 'anonymous';
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  const togglePlay = async () => {
+    if (!audioRef.current) return;
+    
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      try {
+        audioRef.current.src = 'https://myradio24.org/54137';
+        await audioRef.current.play();
+        setIsPlaying(true);
+      } catch (error) {
+        console.error('Ошибка воспроизведения:', error);
+        setIsPlaying(false);
+      }
+    }
+  };
 
   const schedule = [
     { time: '06:00 - 09:00', show: 'Утреннее шоу', host: 'Анна Смирнова' },
@@ -55,8 +85,8 @@ function Index() {
 
         <Card className="bg-card/50 backdrop-blur-sm border-border p-8 max-w-md w-full">
           <div className="flex items-center gap-3 mb-6">
-            <div className={`w-3 h-3 rounded-full ${showPlayer ? 'bg-primary animate-pulse' : 'bg-muted'}`} />
-            <span className="text-sm font-medium">{showPlayer ? 'В эфире' : 'Оффлайн'}</span>
+            <div className={`w-3 h-3 rounded-full ${isPlaying ? 'bg-primary animate-pulse' : 'bg-muted'}`} />
+            <span className="text-sm font-medium">{isPlaying ? 'В эфире' : 'Оффлайн'}</span>
           </div>
 
           <div className="mb-6">
@@ -64,25 +94,14 @@ function Index() {
             <p className="text-sm text-muted-foreground">Ольга Миляр</p>
           </div>
 
-          {!showPlayer ? (
-            <Button
-              onClick={() => setShowPlayer(true)}
-              size="lg"
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
-              <Icon name="Play" className="mr-2" size={20} />
-              Слушать эфир
-            </Button>
-          ) : (
-            <div className="w-full">
-              <iframe
-                src="https://myradio24.com/54137"
-                style={{ width: '100%', height: '120px', border: 'none' }}
-                allowFullScreen
-                title="Радио плеер"
-              />
-            </div>
-          )}
+          <Button
+            onClick={togglePlay}
+            size="lg"
+            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+          >
+            <Icon name={isPlaying ? 'Pause' : 'Play'} className="mr-2" size={20} />
+            {isPlaying ? 'Пауза' : 'Слушать эфир'}
+          </Button>
         </Card>
       </section>
 
