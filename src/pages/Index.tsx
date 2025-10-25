@@ -7,14 +7,11 @@ import { Textarea } from '@/components/ui/textarea';
 
 function Index() {
   const [activeSection, setActiveSection] = useState('home');
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     audioRef.current = new Audio('https://myradio24.com/stream/54137');
-    audioRef.current.play().catch(() => {
-      setIsPlaying(false);
-    });
 
     return () => {
       if (audioRef.current) {
