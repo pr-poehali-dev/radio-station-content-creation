@@ -11,7 +11,7 @@ function Index() {
 
   const schedule = [
     { time: '06:00 - 09:00', show: 'Утреннее шоу', host: 'Анна Смирнова' },
-    { time: '09:00 - 12:00', show: 'Музыкальный марафон', host: 'Дмитрий Волков' },
+    { time: '09:00 - 12:00', show: 'Музыкальный марафон', host: 'Ольга Миляр' },
     { time: '12:00 - 15:00', show: 'День с тобой', host: 'Елена Петрова' },
     { time: '15:00 - 18:00', show: 'Вечерний драйв', host: 'Михаил Соколов' },
     { time: '18:00 - 21:00', show: 'Топ хиты', host: 'Ольга Иванова' },
@@ -64,7 +64,7 @@ function Index() {
 
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-1">Музыкальный марафон</h3>
-            <p className="text-sm text-muted-foreground">Дмитрий Волков</p>
+            <p className="text-sm text-muted-foreground">Ольга Миляр</p>
           </div>
 
           <Button
