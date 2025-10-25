@@ -72,7 +72,7 @@ function Index() {
             className="w-64 h-64 object-contain mx-auto mb-6"
           />
         </div>
-        <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
+        <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 tracking-tight">
           КонтентМедиа<span className="text-primary">Pro</span>
         </h1>
         <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl">
