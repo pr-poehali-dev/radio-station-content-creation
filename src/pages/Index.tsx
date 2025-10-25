@@ -8,7 +8,9 @@ import { Textarea } from '@/components/ui/textarea';
 function Index() {
   const [activeSection, setActiveSection] = useState('home');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState({ artist: '', title: '' });
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const metadataIntervalRef = useRef<number | null>(null);
 
   useEffect(() => {
     audioRef.current = new Audio();
@@ -18,8 +20,27 @@ function Index() {
         audioRef.current.pause();
         audioRef.current = null;
       }
+      if (metadataIntervalRef.current) {
+        clearInterval(metadataIntervalRef.current);
+      }
     };
   }, []);
+
+  const fetchMetadata = async () => {
+    try {
+      const response = await fetch('https://myradio24.org/status/54137');
+      const data = await response.json();
+      if (data.title) {
+        const [artist, title] = data.title.split(' - ');
+        setCurrentTrack({ 
+          artist: artist || 'КонтентМедиаPro', 
+          title: title || data.title 
+        });
+      }
+    } catch (error) {
+      console.error('Ошибка получения метаданных:', error);
+    }
+  };
 
   const togglePlay = async () => {
     if (!audioRef.current) return;
@@ -27,11 +48,18 @@ function Index() {
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
+      if (metadataIntervalRef.current) {
+        clearInterval(metadataIntervalRef.current);
+        metadataIntervalRef.current = null;
+      }
     } else {
       try {
         audioRef.current.src = 'https://myradio24.org/54137';
         await audioRef.current.play();
         setIsPlaying(true);
+        
+        await fetchMetadata();
+        metadataIntervalRef.current = window.setInterval(fetchMetadata, 10000);
       } catch (error) {
         console.error('Ошибка воспроизведения:', error);
         setIsPlaying(false);
@@ -90,8 +118,17 @@ function Index() {
           </div>
 
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-1">Non-Stop</h3>
-            <p className="text-sm text-muted-foreground">Ольга Миляр</p>
+            {isPlaying && currentTrack.artist ? (
+              <>
+                <h3 className="text-lg font-semibold mb-1">{currentTrack.title || 'Загрузка...'}</h3>
+                <p className="text-sm text-muted-foreground">{currentTrack.artist}</p>
+              </>
+            ) : (
+              <>
+                <h3 className="text-lg font-semibold mb-1">Non-Stop</h3>
+                <p className="text-sm text-muted-foreground">Ольга Миляр</p>
+              </>
+            )}
           </div>
 
           <Button
