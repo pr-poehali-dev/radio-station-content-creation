@@ -266,9 +266,11 @@ function Index() {
             </div>
             <p className="text-sm text-muted-foreground">© 2025 КонтентМедиаPro. Все права защищены.</p>
             <div className="flex gap-4">
-              <Icon name="Instagram" className="text-muted-foreground hover:text-primary cursor-pointer transition-colors" size={20} />
-              <Icon name="Twitter" className="text-muted-foreground hover:text-primary cursor-pointer transition-colors" size={20} />
-              <Icon name="Facebook" className="text-muted-foreground hover:text-primary cursor-pointer transition-colors" size={20} />
+              <a href="https://vk.com" target="_blank" rel="noopener noreferrer">
+                <svg className="w-6 h-6 text-muted-foreground hover:text-primary cursor-pointer transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93v6.14C2 20.67 3.33 22 8.93 22h6.14c5.6 0 6.93-1.33 6.93-6.93V8.93C22 3.33 20.67 2 15.07 2zm3.19 14.29h-1.48c-.66 0-.86-.53-2.05-1.73-1.03-1.01-1.49-1.15-1.75-1.15-.36 0-.46.1-.46.58v1.58c0 .43-.14.68-1.25.68-1.85 0-3.89-1.12-5.33-3.21C3.84 9.88 3.4 7.85 3.4 7.4c0-.26.1-.5.58-.5h1.48c.43 0 .6.2.76.66.85 2.37 2.26 4.44 2.85 4.44.22 0 .32-.1.32-.66v-2.56c-.07-1.32-.77-1.43-.77-1.9 0-.21.17-.42.45-.42h2.33c.36 0 .5.2.5.63v3.47c0 .36.16.5.26.5.22 0 .4-.14.82-.56 1.26-1.42 2.17-3.62 2.17-3.62.12-.26.32-.5.75-.5h1.48c.53 0 .65.27.53.63-.21.97-2.24 3.94-2.24 3.94-.19.3-.26.44 0 .77.19.25.8.78 1.21 1.26.74.84 1.31 1.54 1.46 2.03.16.48-.08.73-.56.73z"/>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
