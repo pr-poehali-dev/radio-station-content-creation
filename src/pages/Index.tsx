@@ -11,7 +11,7 @@ function Index() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    audioRef.current = new Audio('https://stream.zeno.fm/54137');
+    audioRef.current = new Audio('https://myradio24.com/stream/54137');
     audioRef.current.play().catch(() => {
       setIsPlaying(false);
     });
