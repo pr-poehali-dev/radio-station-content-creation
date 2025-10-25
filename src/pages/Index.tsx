@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Icon from '@/components/ui/icon';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -7,7 +7,33 @@ import { Textarea } from '@/components/ui/textarea';
 
 function Index() {
   const [activeSection, setActiveSection] = useState('home');
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    audioRef.current = new Audio('https://stream.zeno.fm/54137');
+    audioRef.current.play().catch(() => {
+      setIsPlaying(false);
+    });
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
 
   const schedule = [
     { time: '06:00 - 09:00', show: 'Утреннее шоу', host: 'Анна Смирнова' },
@@ -68,7 +94,7 @@ function Index() {
           </div>
 
           <Button
-            onClick={() => setIsPlaying(!isPlaying)}
+            onClick={togglePlay}
             size="lg"
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
           >
