@@ -80,12 +80,9 @@ function Index() {
         </p>
 
         <Card className="bg-card/50 backdrop-blur-sm border-border p-8 max-w-md w-full">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className={`w-3 h-3 rounded-full ${isPlaying ? 'bg-primary animate-pulse' : 'bg-muted'}`} />
-              <span className="text-sm font-medium">{isPlaying ? 'В эфире' : 'Оффлайн'}</span>
-            </div>
-            <span className="text-sm text-muted-foreground">FM 101.5</span>
+          <div className="flex items-center gap-3 mb-6">
+            <div className={`w-3 h-3 rounded-full ${isPlaying ? 'bg-primary animate-pulse' : 'bg-muted'}`} />
+            <span className="text-sm font-medium">{isPlaying ? 'В эфире' : 'Оффлайн'}</span>
           </div>
 
           <div className="mb-6">
